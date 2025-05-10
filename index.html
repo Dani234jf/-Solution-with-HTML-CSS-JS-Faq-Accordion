@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | FAQ accordion</title>
+
+</head>
+<body>
+  <main>
+    <picture class="background">
+      <source srcset="/assets/images/background-pattern-desktop.svg" media="(width > 600px)">
+      <img src="assets/images/background-pattern-mobile.svg" alt="">
+    </picture>
+    <div class="wrapper">
+      <section>
+        <div id="title">
+          <img id="star-icon" class="icon" src="assets/images/icon-star.svg" alt="">
+          <h1>FAQs</h1>
+        </div>
+        <details>
+          <summary>What is Frontend Mentor, and how will it help me? <picture><img src="assets/images/icon-minus.svg" class="icon"><img src="assets/images/icon-plus.svg" class="icon"></picture></summary>
+          <p>Frontend Mentor offers realistic coding challenges to help developers improve theirfrontend coding skills with projects in HTML, CSS, and JavaScript. It's suitable forall levels and ideal for portfolio building.</p>
+        </details>
+        <hr>
+        <details>
+          <summary>Is Frontend Mentor free? <picture><img src="assets/images/icon-minus.svg" class="icon"><img src="assets/images/icon-plus.svg" class="icon"></picture></summary>
+          <p>Yes, Frontend Mentor offers both free and premium coding challenges, with the freeoption providing access to a range of projects suitable for all skill levels.</p>
+        </details>
+        <hr>
+        <details>
+          <summary>Can I use Frontend Mentor projects in my portfolio? <picture><img src="assets/images/icon-minus.svg" class="icon"><img src="assets/images/icon-plus.svg" class="icon"></picture></summary>
+          <p>Yes, you can use projects completed on Frontend Mentor in your portfolio. It's an excellentway to showcase your skills to potential employers!</p>
+        </details>
+        <hr>
+        <details>
+          <summary>How can I get help if I'm stuck on a Frontend Mentor challenge? <picture><img src="assets/images/icon-minus.svg" class="icon"><img src="assets/images/icon-plus.svg" class="icon"></picture></summary>
+          <p>The best place to get help is inside Frontend Mentor's Discord community. There's a helpchannel where you can ask questions and seek support from other community members.</p>
+        </details>
+      </section>
+    </div>
+
+  </main>
+  <script>
+
+    const allFaqs = Array.from(document.querySelectorAll("details"));
+
+    SetInitialStateIcons = () => {
+      allFaqs.forEach( (element) => {
+        let imgs = element.querySelectorAll("img");
+        element.querySelector("picture").ariaLabel = "closed";
+        imgs.item(0).style.display = "none";  
+        imgs.item(1).style.display = "inline";  
+      });
+    }
+
+    const ChangeIconState = (element) => {
+      let imgs = element.querySelectorAll("img");
+      switch(element.hasAttribute("open")) {
+        case true:
+          element.querySelector("picture").ariaLabel = "open";  
+          imgs.item(0).style.display = "inline";  
+          imgs.item(1).style.display = "none";  
+          break;
+        case false:
+          element.querySelector("picture").ariaLabel = "closed";  
+          imgs.item(0).style.display = "none";  
+          imgs.item(1).style.display = "inline";   
+          break;
+      }
+    }
+
+    SetInitialStateIcons();
+
+    allFaqs.forEach( (element,i) => {
+      element.addEventListener("toggle", () => {
+        ChangeIconState(element);
+      });
+    });
+
+  </script>
+</body>
+</html>
+
+<style>
+
+  :root {
+    --color-white: hsl(0, 100%, 100%);
+    --color-purple-100: hsl(275, 100%, 97%);
+    --color-purple-600: hsl(292, 16%, 49%);
+    --color-purple-950: hsl(292, 42%, 14%);
+    --color-purple-primary: hsl(281, 83%, 54%);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    background-color: var(--color-purple-100);
+  }
+
+  html,body,main {
+    block-size: 100%;
+  }
+
+  .background {
+    position: absolute;
+    inline-size: 100%;
+  }
+
+  img {
+    display: block;
+    &:not(.icon) {
+      inline-size: 100%;
+    }
+  }
+
+  body {
+    color: var(--color-purple-950);
+    font-family: "work sans";
+    font-weight: 400;
+    line-height: 1.35rem;
+  }
+
+  p {
+    color: var(--color-purple-600);
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6vw,2.5rem);
+  }
+
+  hr {
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    & > :last-child {
+      margin-left: auto;
+    }
+  }
+
+  summary:hover {
+    cursor: pointer;
+    color: var(--color-purple-primary);
+  }
+
+  details > p {
+    margin-block: 0.65rem;
+    margin-block-start: 1rem;
+  }
+
+  section {
+    display: grid;
+    gap: 1rem;
+    position: relative;
+    inline-size: 100%;
+    padding: 1.25rem;
+    background-color: var(--color-white);
+    border-radius: 0.5rem;
+    inline-size: 100%;
+    max-inline-size: 40rem;
+    box-shadow: 0 1rem 1rem 0 rgba(88, 24, 114, 0.1);
+  }
+
+  #star-icon {
+    aspect-ratio: 1;
+    inline-size: clamp(1.5rem, 6vw,2.5rem);
+  }
+
+  #title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .wrapper {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-block-size: 100%;
+  }
+
+  section picture {
+    padding-left: 1rem;
+  }
+
+</style>
